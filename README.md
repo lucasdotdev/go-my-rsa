@@ -3,7 +3,7 @@
 <p align="center"><img alt="GitHub go.mod Go version" src="https://img.shields.io/github/go-mod/go-version/lucasdotdev/go-my-rsa">
   <a href="blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/lucasdotdev/go-my-rsa"></a></p>
 
-This is a very simple implementation of the RSA algorithm in Go that I've made while studying this awesome language. Feel free to check the code and do suggestions if you find something that can be improved. ❤️
+This is a very simple Go implementation of the RSA algorithm that I've made while studying this awesome language. Feel free to check the code and do suggestions if you find something that can be improved. ❤️
 
 ## 🏗️ Building
 
