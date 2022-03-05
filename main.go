@@ -1,8 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"math/big"
 	"my-rsa/primes"
+	"os"
+	"strconv"
+	"strings"
 )
 
 type profile struct {
@@ -22,6 +26,65 @@ type key struct {
 }
 
 func main() {
+	command := os.Args[1]
+
+	switch command {
+	case "generate-profile":
+		size, _ := strconv.Atoi(os.Args[3])
+		profile := GenerateProfile(size)
+
+		fmt.Printf(
+			"%d-%d-%d-%d-%d-%d\n",
+			profile.p,
+			profile.q,
+			profile.n,
+			profile.t,
+			profile.e,
+			profile.d,
+		)
+	case "encrypt":
+		profileBlueprint := strings.Split(os.Args[4], "-")
+		p, _ := strconv.Atoi(profileBlueprint[0])
+		q, _ := strconv.Atoi(profileBlueprint[1])
+		n, _ := strconv.Atoi(profileBlueprint[2])
+		t, _ := strconv.Atoi(profileBlueprint[3])
+		e, _ := strconv.Atoi(profileBlueprint[4])
+		d, _ := strconv.Atoi(profileBlueprint[5])
+
+		profile := LoadProfile(
+			p,
+			q,
+			n,
+			t,
+			e,
+			d,
+		)
+
+		message := os.Args[2]
+
+		fmt.Println(EncryptString(message, profile))
+	case "decrypt":
+		profileBlueprint := strings.Split(os.Args[4], "-")
+		p, _ := strconv.Atoi(profileBlueprint[0])
+		q, _ := strconv.Atoi(profileBlueprint[1])
+		n, _ := strconv.Atoi(profileBlueprint[2])
+		t, _ := strconv.Atoi(profileBlueprint[3])
+		e, _ := strconv.Atoi(profileBlueprint[4])
+		d, _ := strconv.Atoi(profileBlueprint[5])
+
+		profile := LoadProfile(
+			p,
+			q,
+			n,
+			t,
+			e,
+			d,
+		)
+
+		message := os.Args[2]
+
+		fmt.Println(DecryptString(message, profile))
+	}
 }
 
 func LoadProfile(p, q, n, t, e, d int) profile {
